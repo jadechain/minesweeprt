@@ -1,0 +1,21 @@
+00:37:45:347 preferences saved
+00:37:14:551 high score replay automatically saved
+00:33:48:834 expert mode selected
+00:33:45:975 close preferences window
+00:33:45:974 preferences applied
+00:33:45:970 preferences loaded
+00:33:45:819 preferences saved
+00:33:36:278 ---
+00:33:36:277 who of them got the skills to test me?
+00:33:36:277 ---
+00:33:36:276 warp field stabilized. opening gate to the minesweeper world
+00:33:36:275 encrypt_engine test ok
+00:33:36:274 encrypt_engine testing ...
+00:33:36:273 ---
+00:33:36:272 language  | 00000804
+00:33:36:270 timezone  | 中国标准时间 (GMT +8:00)
+00:33:36:269 platform  | Windows NT 6.2 build 9200, 
+00:33:36:268 memory    | 2047,0 of 2047,0 MB RAM free
+00:33:36:268 cpu speed | run the command get_cpu_speed
+00:33:36:267 date      | Mon, 18.07.2022, process 0x005D182E launched
+00:33:36:261 path      | D:\CHENYULIAN\MINESWEEPRT\ARBITER\
