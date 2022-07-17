@@ -4,13 +4,15 @@ from time import sleep
 
 miner_x, miner_y = 30, 16
 width, height = 16, 16
+global mines, mines_sign, mines_judge
+global x_0, y_0
 
 
 def game_init():
     # 初始脚本：初始化列表信息，寻找扫雷窗口，开始运行脚本
     global mines, mines_sign, mines_judge
     mines = []  # 存储未点开格子BOX信息的列表
-    mines_sign = [-1 for i in range(miner_x * miner_y)]  # 存储格子是否被点了的信息，0-8为雷的个数，-1为未点开，9为旗子, 10为雷
+    mines_sign = [-1 for _ in range(miner_x * miner_y)]  # 存储格子是否被点了的信息，0-8为雷的个数，-1为未点开，9为旗子, 10为雷
     mines_judge = [i for i in range(miner_x * miner_y)]  # 若某个格子已经得出结论，则删除该数的序号，以后无须再判断
 
     while True:
@@ -35,7 +37,7 @@ def run_game():
         solve_b()
         b = get_mine_last()
         if a == b:
-            clikc_random()  # 若a方法和b方法均不能判断，即出现需要蒙的情况，则随机点一个
+            click_random()  # 若a方法和b方法均不能判断，即出现需要蒙的情况，则随机点一个
         if get_mine_last() == 99:
             for i in mines_judge:
                 try:
@@ -125,7 +127,7 @@ def get_blank_boom(index):
 
 def click_luck(temp):
     """随机从剩余没点开的格子中点击一个"""
-    clikc_random()
+    click_random()
     if len(mines_judge) < 430:
         return
     get_nums()
@@ -145,7 +147,7 @@ def printf():
             print('%2d' % j, end=',')
 
 
-def clikc_random():
+def click_random():
     while True:
         index = random.randint(0, 480)
         if index in mines_judge:
@@ -193,31 +195,31 @@ def check_8(index):
     down = [2, 1][i == miner_y - 1]
     left = [1, 0][j == 0]
     right = [2, 1][j == miner_x - 1]
-    gezi_8 = []
+    grid_8 = []
     for x in range(i - up, i + down):
         for y in range(j - left, j + right):
             if x != i or y != j:
-                gezi_8.append(x * miner_x + y)
+                grid_8.append(x * miner_x + y)
     temp = []
     booms = 0
-    for i in gezi_8:
+    for i in grid_8:
         if mines_sign[i] >= 0 and mines_sign[i] != 9:
             temp.append(i)
     for tem in temp:
-        gezi_8.remove(tem)
+        grid_8.remove(tem)
 
-    for i in gezi_8:
+    for i in grid_8:
         if mines_sign[i] == 9:
             booms += 1
-    if booms == mines_sign[index] and len(gezi_8) == mines_sign[index]:
+    if booms == mines_sign[index] and len(grid_8) == mines_sign[index]:
         mines_judge.remove(index)
         # print('judge 删除 %3d' % index)
         return
-    elif booms == mines_sign[index] and len(gezi_8) != mines_sign[index]:
+    elif booms == mines_sign[index] and len(grid_8) != mines_sign[index]:
         click_mid(index)
         return
     else:
-        return gezi_8
+        return grid_8
 
 
 def check_4(index):
@@ -227,17 +229,17 @@ def check_4(index):
     """
     if index not in mines_judge:
         return
-    gezi_4 = [index - miner_x, index - 1, index + 1, index + miner_x]
+    grid_4 = [index - miner_x, index - 1, index + 1, index + miner_x]
     temp = []
     if index % 30 == 0:
-        gezi_4.remove(index - 1)
+        grid_4.remove(index - 1)
     if (index + 1) % 30 == 0:
-        gezi_4.remove(index + 1)
+        grid_4.remove(index + 1)
     if 0 <= index <= 29:
-        gezi_4.remove(index - miner_x)
+        grid_4.remove(index - miner_x)
     if 450 <= index <= 479:
-        gezi_4.remove(index + miner_x)
-    for m in gezi_4:
+        grid_4.remove(index + miner_x)
+    for m in grid_4:
         if mines_sign[m] == 0:
             temp.append(m)
         if mines_sign[m] == -1:
@@ -245,8 +247,8 @@ def check_4(index):
         if mines_sign[m] == 9:
             temp.append(m)
     for m in temp:
-        gezi_4.remove(m)
-    return gezi_4
+        grid_4.remove(m)
+    return grid_4
 
 
 def get_nums():
